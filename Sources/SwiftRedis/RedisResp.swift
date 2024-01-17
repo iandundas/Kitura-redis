@@ -16,6 +16,7 @@
 
 import Socket
 import Foundation
+import SSLService
 
 enum RedisRespStatus {
     case notConnected
@@ -43,6 +44,7 @@ class RedisResp {
 
     init(host: String, port: Int32) {
         socket = try? Socket.create()
+        socket?.delegate = try? SSLService(usingConfiguration: SSLService.Configuration())
         try? socket?.connect(to: host, port: port)
     }
 
